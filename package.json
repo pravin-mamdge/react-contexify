@@ -17,7 +17,7 @@
     "test": "cross-env NODE_ENV=test jest --verbose",
     "test:coverage": "cross-env NODE_ENV=test jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prettier": "prettier --parser typescript --single-quote --write \"src/**/*.{ts,tsx}\"",
-    "prebuild": "npm run prettier && npm run test",
+    "prebuild": "npm run prettier",
     "build": "npm run build:es && npm run build:umd && npm run style",
     "build:es": "npm run clean:es && cross-env NODE_ENV=production tsc",
     "build:umd": "npm run clean:umd && cross-env NODE_ENV=production webpack",
