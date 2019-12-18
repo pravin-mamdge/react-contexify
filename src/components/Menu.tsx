@@ -163,11 +163,11 @@ class Menu extends Component<MenuProps, MenuState> {
     let { x, y } = this.state;
 
     if (x + menuWidth > windowWidth) {
-      x -= x + menuWidth - windowWidth;
+      x -= menuWidth + 5;
     }
 
     if (y + menuHeight > windowHeight) {
-      y -= y + menuHeight - windowHeight;
+      y -= menuHeight - 5;
     }
 
     this.setState(
@@ -188,7 +188,8 @@ class Menu extends Component<MenuProps, MenuState> {
     if (
       e.type === 'touchend' &&
       (!pos.x || !pos.y) &&
-      (e.changedTouches && e.changedTouches.length > 0)
+      e.changedTouches &&
+      e.changedTouches.length > 0
     ) {
       pos.x = e.changedTouches[0].clientX;
       pos.y = e.changedTouches[0].clientY;
