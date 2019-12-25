@@ -162,12 +162,18 @@ class Menu extends Component<MenuProps, MenuState> {
     const { offsetWidth: menuWidth, offsetHeight: menuHeight } = this.menuRef;
     let { x, y } = this.state;
 
+    x -= menuWidth - 5;
+    
+    if (x < 0) {
+      x += menuWidth;
+    }
+
     if (x + menuWidth > windowWidth) {
-      x -= menuWidth + 5;
+      x -= menuWidth - 5;
     }
 
     if (y + menuHeight > windowHeight) {
-      y -= menuHeight - 5;
+      y -= menuHeight;
     }
 
     this.setState(
@@ -206,7 +212,10 @@ class Menu extends Component<MenuProps, MenuState> {
     return pos;
   }
 
-  show = (e: TriggerEvent, props: object) => {
+  show = (
+    e: TriggerEvent,
+    props: { x?: number; y?: number; [key: string]: any }
+  ) => {
     e.stopPropagation();
     eventManager.emit(HIDE_ALL);
 
@@ -215,8 +224,8 @@ class Menu extends Component<MenuProps, MenuState> {
     this.setState(
       {
         visible: true,
-        x,
-        y,
+        x: props.x || x,
+        y: props.y || y,
         nativeEvent: e,
         propsFromTrigger: props
       },
