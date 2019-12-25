@@ -78,7 +78,7 @@ class Menu extends Component<MenuProps, MenuState> {
     x: 0,
     y: 0,
     visible: false,
-    nativeEvent: {} as TriggerEvent,
+    nativeEvent: {} as any,
     propsFromTrigger: {},
     onShown: null,
     onHidden: null
@@ -160,20 +160,21 @@ class Menu extends Component<MenuProps, MenuState> {
   setMenuPosition() {
     const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
     const { offsetWidth: menuWidth, offsetHeight: menuHeight } = this.menuRef;
-    let { x, y } = this.state;
+    let { x, y, nativeEvent } = this.state;
 
-    x -= menuWidth - 5;
-    
+    x -= menuWidth + 5;
+
     if (x < 0) {
       x += menuWidth;
     }
 
     if (x + menuWidth > windowWidth) {
-      x -= menuWidth - 5;
+      x -= menuWidth;
     }
 
     if (y + menuHeight > windowHeight) {
-      y -= menuHeight;
+      const parentNodeRect = nativeEvent.target.parentNode.getBoundingClientRect();
+      y = parentNodeRect ? parentNodeRect.top - menuHeight : y - menuHeight;
     }
 
     this.setState(
