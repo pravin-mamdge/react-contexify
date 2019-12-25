@@ -160,7 +160,7 @@ class Menu extends Component<MenuProps, MenuState> {
   setMenuPosition() {
     const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
     const { offsetWidth: menuWidth, offsetHeight: menuHeight } = this.menuRef;
-    let { x, y, nativeEvent } = this.state;
+    let { x, y } = this.state;
 
     x -= menuWidth + 5;
 
@@ -173,8 +173,7 @@ class Menu extends Component<MenuProps, MenuState> {
     }
 
     if (y + menuHeight > windowHeight) {
-      const parentNodeRect = nativeEvent.target.parentNode.getBoundingClientRect();
-      y = parentNodeRect ? parentNodeRect.top - menuHeight : y - menuHeight;
+      y -= menuHeight;
     }
 
     this.setState(
