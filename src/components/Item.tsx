@@ -80,7 +80,7 @@ class Item extends Component<ItemProps> {
   render() {
     const { className, style, children } = this.props;
 
-    const cssClasses = cx(styles.item, className, {
+    const cssClasses = cx(styles.item, {
       [`${styles.itemDisabled}`]: this.isDisabled
     });
 
@@ -91,7 +91,9 @@ class Item extends Component<ItemProps> {
         onClick={this.handleClick}
         role="presentation"
       >
-        <div className={styles.itemContent}>{children}</div>
+        <div className={className ? className : styles.itemContent}>
+          {children}
+        </div>
       </div>
     );
   }
