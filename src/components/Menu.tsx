@@ -158,7 +158,11 @@ class Menu extends Component<MenuProps, MenuState> {
   };
 
   setMenuPosition() {
-    const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
+    const {
+      innerWidth: windowWidth,
+      innerHeight: windowHeight,
+      scrollY: scrollHeight
+    } = window;
     const { offsetWidth: menuWidth, offsetHeight: menuHeight } = this.menuRef;
     let { x, y } = this.state;
 
@@ -172,7 +176,7 @@ class Menu extends Component<MenuProps, MenuState> {
       x -= menuWidth;
     }
 
-    if (y + menuHeight > windowHeight) {
+    if (y + menuHeight > windowHeight + scrollHeight) {
       y -= menuHeight;
     }
 
